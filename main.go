@@ -61,7 +61,7 @@ func main() {
 				}
 
 				// Display.
-				fmt.Printf("\nThe total price for the project at the moment is: %.2f eur", total)
+				fmt.Printf("\nThe total price for the project at the moment is: %.2f eur\n", total)
 
 			// Quit.
 			case inp == 4:

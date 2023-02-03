@@ -10,11 +10,10 @@ import (
 func InFloat(text string) float64 {
 	reader := bufio.NewReader(os.Stdin)
 
-	var try bool
 	var uFloat float64
 	var uErr error
 
-	for !try {
+	for {
 		fmt.Println(text)
 		uIn, _ := reader.ReadString('\n')
 		// Convert to float.
@@ -31,11 +30,10 @@ func InFloat(text string) float64 {
 func InInt(text string) int {
 	reader := bufio.NewReader(os.Stdin)
 
-	var try bool
 	var uInt int
 	var uErr error
 
-	for !try {
+	for {
 		fmt.Println(text)
 		uIn, _ := reader.ReadString('\n')
 		// Convert to int.

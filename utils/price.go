@@ -5,10 +5,9 @@ import (
 )
 
 func PaintPrice() float64 {
-	var try bool
 	var price float64
 
-	for !try {
+	for {
 		price = InFloat("Please enter price of the paint per m2: ")
 		if price > 0 {
 			break
