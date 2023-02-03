@@ -1,64 +1,49 @@
 package utils
 
 import (
-	"bufio"
 	"fmt"
-	"os"
 	"strconv"
 )
 
 func Wallsize() (float64, float64) {
-	var height float64
-	var width float64
-	var hErr error
-	var wErr error
 	var try bool
-
-	reader := bufio.NewReader(os.Stdin)
-
-	// Get height.
-	for !try {
-		fmt.Println("Please enter a height for the wall (in meters):")
-		hIn, _ := reader.ReadString('\n')
-		height, hErr = strconv.ParseFloat(hIn[:len(hIn)-1], 64)
-		if hErr == nil && height > 0 {
-			break
-		} else {
-			fmt.Println("Try again.")
-		}
-	}
+	var width float64
+	var height float64
 
 	// Get width
 	for !try {
-		fmt.Println("Please enter a width for the wall (in meters):")
-		wIn, _ := reader.ReadString('\n')
-		width, wErr = strconv.ParseFloat(wIn[:len(wIn)-1], 64)
-		if wErr == nil && width > 0 {
+		width = InFloat("\nPlease enter a width for the wall (in meters): ")
+		if width > 0 {
 			break
 		} else {
-			fmt.Println("Try again.")
+			fmt.Println("Invalid input, please try again.")
 		}
 	}
 
-	return height, width
+	// Get height
+	for !try {
+		height = InFloat("\nPlease enter a height for the wall (in meters): ")
+		if width > 0 {
+			break
+		} else {
+			fmt.Println("Invalid input, please try again.")
+		}
+	}
+
+	return width, height
 }
 
 func WallsNb() int {
 	var nWalls int
-	var walErr error
 	var try bool
 
-	reader := bufio.NewReader(os.Stdin)
-
-	// Get the number of wall .
+	// Get the number of wall.
 	for !try {
-		fmt.Println("Please enter the number of walls (integer number): ")
-		nIn, _ := reader.ReadString('\n')
-		nWalls, walErr = strconv.Atoi(nIn[:len(nIn)-1])
-		if walErr == nil && nWalls > 0 {
+		nWalls = InInt("\nEnter the number of walls for the previously entered dimensions: ")
+		if nWalls > 0 {
 			break
 		} else {
-			fmt.Println("Try again.")
+			fmt.Println("Invalid input, please try again.")
 		}
 	}
 
@@ -70,27 +55,95 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 	// Length of slice
 	size := len(width)
 
-	fmt.Println("There are currently ", size, "different wall(s).")
+	// Display the number of different wall sizes.
+	fmt.Println("\nThere are currently ", size, "different wall(s).")
+	displayWalls(width, height)
 
+	// Loop to decide which dimensions to modify.
+	// Can change only one or both.
 	var try bool
-
-	reader := bufio.NewReader(os.Stdin)
-
 	for !try {
-		// Get the index of wall to modify
-		fmt.Println("Which one would you like to modify?")
-		nIn, _ := reader.ReadString('\n')
-		num, nErr := strconv.Atoi(nIn[:len(nIn)-1])
-		if nErr == nil && num <= size && num > 0 {
-			y, x := Wallsize()
-			// Update slices
-			width[size-1] = x
-			height[size-1] = y
+		nIn := InInt("\nWhich walls dimensions would you like to modify?")
+		// Check if the input mathes an existing wall.
+		if nIn >= 0 && nIn <= size {
+			fmt.Println("Which dimension would you like to change?")
+			fmt.Println("1. Width")
+			fmt.Println("2. Height")
+			fmt.Println("3. Both")
 
+			// Selection of which dimensons to change.
+			cIn := InInt("Enter a number: ")
+			if cIn < 1 || cIn > 3 {
+				fmt.Println("Invalid selection, please try again.")
+				continue
+				// Change width.
+			} else if cIn == 1 {
+				for !try {
+					x := InFloat("Enter a new width (in meters): ")
+					if x <= 0 {
+						fmt.Println("Invalid input, please try again.")
+					} else {
+						width[nIn-1] = x
+						break
+					}
+				}
+				// Change height.
+			} else if cIn == 2 {
+				for !try {
+					y := InFloat("Enter a new height (in meters): ")
+					if y <= 0 {
+						fmt.Println("Invalid input, please try again.")
+					} else {
+						height[nIn-1] = y
+						break
+					}
+				}
+				// Change both.
+			} else {
+				for !try {
+					x := InFloat("Enter a new height (in meters): ")
+					if x <= 0 {
+						fmt.Println("Invalid input, please try again.")
+					} else {
+						height[nIn-1] = x
+						break
+					}
+				}
+
+				for !try {
+					y := InFloat("Enter a new height (in meters): ")
+					if y <= 0 {
+						fmt.Println("Invalid input, please try again.")
+					} else {
+						height[nIn-1] = y
+						break
+					}
+				}
+			}
 			break
-		} else {
-			fmt.Println("Wall does not exist, try again.")
 		}
 	}
+
+	// Display updated walls.
+	fmt.Println("\nUpdated walls are: ")
+	displayWalls(width, height)
+
 	return width, height
+}
+
+func displayWalls(width []float64, height []float64) {
+	var display []string
+
+	// Loop over length of width (booth loop should be of same length)
+	for i := range width {
+		// Convert float to string
+		x := strconv.FormatFloat(width[i], 'f', -1, 64)
+		y := strconv.FormatFloat(height[i], 'f', -1, 64)
+		// Concat string
+		app := x + "x" + y
+		// Append to output slice
+		display = append(display, app)
+	}
+
+	fmt.Println(display)
 }

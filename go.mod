@@ -1,3 +1,3 @@
-module example.com/painter-calculator
+module example.com/paint-calculator
 
 go 1.20
