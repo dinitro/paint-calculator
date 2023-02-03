@@ -5,7 +5,7 @@ import (
 	"strconv"
 )
 
-func Wallsize() (float64, float64) {
+func WallSize() (float64, float64) {
 	var try bool
 	var width float64
 	var height float64
@@ -64,14 +64,14 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 	var try bool
 	for !try {
 		nIn := InInt("\nWhich walls dimensions would you like to modify?")
-		// Check if the input mathes an existing wall.
+		// Check if the input matches an existing wall.
 		if nIn >= 0 && nIn <= size {
 			fmt.Println("Which dimension would you like to change?")
 			fmt.Println("1. Width")
 			fmt.Println("2. Height")
 			fmt.Println("3. Both")
 
-			// Selection of which dimensons to change.
+			// Selection of which dimensions to change.
 			cIn := InInt("Enter a number: ")
 			if cIn < 1 || cIn > 3 {
 				fmt.Println("Invalid selection, please try again.")

@@ -14,7 +14,7 @@ func main() {
 	var nbWalls []int
 
 	// Get dimensions of a wall:
-	x, y := utils.Wallsize()
+	x, y := utils.WallSize()
 	wArr = append(wArr, x)
 	hArr = append(hArr, y)
 
@@ -32,7 +32,7 @@ func main() {
 			// Add another wall with some dimensions and the number of walls of this dimension.
 			case inp == 1:
 				// Dimensions
-				y, x := utils.Wallsize()
+				y, x := utils.WallSize()
 				wArr = append(wArr, x)
 				hArr = append(hArr, y)
 				// Amount
