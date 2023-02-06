@@ -1,8 +1,10 @@
-package utils
+package wall
 
 import (
 	"fmt"
 	"strconv"
+
+	"example.com/paint-calculator/userin"
 )
 
 func WallSize() (float64, float64) {
@@ -11,7 +13,7 @@ func WallSize() (float64, float64) {
 
 	// Get width
 	for {
-		width = InFloat("\nPlease enter a width for the wall (in meters): ")
+		width = userin.InFloat("\nPlease enter a width for the wall (in meters): ")
 		if width > 0 {
 			break
 		} else {
@@ -21,7 +23,7 @@ func WallSize() (float64, float64) {
 
 	// Get height
 	for {
-		height = InFloat("\nPlease enter a height for the wall (in meters): ")
+		height = userin.InFloat("\nPlease enter a height for the wall (in meters): ")
 		if width > 0 {
 			break
 		} else {
@@ -37,7 +39,7 @@ func WallsNb() int {
 
 	// Get the number of wall.
 	for {
-		nWalls = InInt("\nEnter the number of walls for the previously entered dimensions: ")
+		nWalls = userin.InInt("\nEnter the number of walls for the previously entered dimensions: ")
 		if nWalls > 0 {
 			break
 		} else {
@@ -60,7 +62,7 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 	// Loop to decide which dimensions to modify.
 	// Can change only one or both.
 	for {
-		nIn := InInt("\nWhich walls dimensions would you like to modify?")
+		nIn := userin.InInt("\nWhich walls dimensions would you like to modify?")
 		// Check if the input matches an existing wall.
 		if nIn >= 0 && nIn <= size {
 			fmt.Println("Which dimension would you like to change?")
@@ -69,14 +71,14 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 			fmt.Println("3. Both")
 
 			// Selection of which dimensions to change.
-			cIn := InInt("Enter a number: ")
+			cIn := userin.InInt("Enter a number: ")
 			if cIn < 1 || cIn > 3 {
 				fmt.Println("Invalid selection, please try again.")
 				continue
 				// Change width.
 			} else if cIn == 1 {
 				for {
-					x := InFloat("Enter a new width (in meters): ")
+					x := userin.InFloat("Enter a new width (in meters): ")
 					if x <= 0 {
 						fmt.Println("Invalid input, please try again.")
 					} else {
@@ -87,7 +89,7 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 				// Change height.
 			} else if cIn == 2 {
 				for {
-					y := InFloat("Enter a new height (in meters): ")
+					y := userin.InFloat("Enter a new height (in meters): ")
 					if y <= 0 {
 						fmt.Println("Invalid input, please try again.")
 					} else {
@@ -98,7 +100,7 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 				// Change both.
 			} else {
 				for {
-					x := InFloat("Enter a new height (in meters): ")
+					x := userin.InFloat("Enter a new height (in meters): ")
 					if x <= 0 {
 						fmt.Println("Invalid input, please try again.")
 					} else {
@@ -108,7 +110,7 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 				}
 
 				for {
-					y := InFloat("Enter a new height (in meters): ")
+					y := userin.InFloat("Enter a new height (in meters): ")
 					if y <= 0 {
 						fmt.Println("Invalid input, please try again.")
 					} else {
