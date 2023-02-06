@@ -125,12 +125,13 @@ func ModifyWall(width []float64, height []float64) ([]float64, []float64) {
 
 	// Display updated walls.
 	fmt.Println("\nUpdated walls are: ")
-	displayWalls(width, height)
+	disp := displayWalls(width, height)
+	fmt.Println(disp)
 
 	return width, height
 }
 
-func displayWalls(width []float64, height []float64) {
+func displayWalls(width []float64, height []float64) []string {
 	var display []string
 
 	// Loop over length of width (booth loop should be of same length)
@@ -144,5 +145,6 @@ func displayWalls(width []float64, height []float64) {
 		display = append(display, app)
 	}
 
-	fmt.Println(display)
+	// fmt.Println(display)
+	return display
 }
